@@ -1,0 +1,17 @@
+name: identity
+description: Universal Identity library
+version: 0.0.2
+author: Long Do <me@dotronglong.com>
+homepage: https://github.com/dotronglong/dart-identity
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sso: ^0.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
