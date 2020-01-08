@@ -1,3 +1,8 @@
+## [0.0.4] - v0.0.4
+
+* Remove `context` getter
+* Use sso `^0.0.5`
+
 ## [0.0.3] - v0.0.3
 
 * Allow to get `context` of `Identity`

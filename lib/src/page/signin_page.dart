@@ -21,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
     ThemeData theme = this.widget.theme ?? Theme.of(context);
     Widget header = this.widget.header ?? _header();
     List<Widget> actions = [header];
-    actions.addAll(this.widget.provider.actions());
+    actions.addAll(this.widget.provider.actions(context));
 
     return Scaffold(
       body: Builder(builder: (context) {
