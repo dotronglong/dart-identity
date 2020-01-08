@@ -60,6 +60,7 @@ class Identity {
 
   void _clear() {
     _user = null;
+    _provider.stop();
     Navigator.of(_context)
         .pushReplacement(MaterialPageRoute(builder: _signInPageBuilder));
   }
@@ -72,8 +73,9 @@ class Identity {
 
   void _handleSignInSuccess(User user) {
     _user = user;
-    Navigator.of(_context)
-        .pushReplacement(MaterialPageRoute(builder: _signInSuccessPageBuilder));
+    Navigator.popUntil(_context, (route) => route.isFirst);
+    Navigator.pushReplacement(
+        _context, MaterialPageRoute(builder: _signInSuccessPageBuilder));
   }
 
   /// Helper to handle error

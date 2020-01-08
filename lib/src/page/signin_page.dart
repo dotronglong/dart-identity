@@ -18,9 +18,13 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = this.widget.theme ?? Theme.of(context);
-    Widget header = this.widget.header ?? _header();
-    List<Widget> actions = [header];
+    ThemeData theme =
+        this.widget.theme ?? this.widget.provider.theme ?? Theme.of(context);
+    Widget header = this.widget.header ?? this.widget.provider.header;
+    List<Widget> actions = [];
+    if (header != null) {
+      actions.add(header);
+    }
     actions.addAll(this.widget.provider.actions(context));
 
     return Scaffold(
@@ -45,9 +49,5 @@ class _SignInPageState extends State<SignInPage> {
         );
       }),
     );
-  }
-
-  Widget _header() {
-    return Container();
   }
 }
