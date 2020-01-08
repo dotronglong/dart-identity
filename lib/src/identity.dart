@@ -11,6 +11,7 @@ class Identity {
   User _user;
 
   User get user => _user;
+  BuildContext get context => _context;
 
   set user(User user) {
     if (user == null) {
