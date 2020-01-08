@@ -18,17 +18,15 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    ThemeData theme =
-        this.widget.theme ?? this.widget.provider.theme ?? Theme.of(context);
-    Widget header = this.widget.header ?? this.widget.provider.header;
-    List<Widget> actions = [];
-    if (header != null) {
-      actions.add(header);
-    }
-    actions.addAll(this.widget.provider.actions(context));
-
     return Scaffold(
       body: Builder(builder: (context) {
+        ThemeData theme = this.widget.theme ??
+            this.widget.provider.theme ??
+            Theme.of(context);
+        Widget header = this.widget.header ?? this.widget.provider.header;
+        List<Widget> actions = header == null ? [] : [header];
+        actions.addAll(this.widget.provider.actions(context));
+
         return Container(
           color: theme.primaryColor,
           padding: EdgeInsets.only(left: 16, right: 16, top: 24),
