@@ -1,3 +1,7 @@
+## [0.0.5] - v0.0.5
+
+* Add `error` helper method
+
 ## [0.0.4] - v0.0.4
 
 * Remove `context` getter

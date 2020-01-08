@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:identity/src/page/signin_page.dart';
 import 'package:sso/sso.dart';
+
+import 'page/signin_page.dart';
 
 class Identity {
   static Identity _instance;
@@ -73,5 +74,18 @@ class Identity {
     _user = user;
     Navigator.of(_context)
         .pushReplacement(MaterialPageRoute(builder: _signInSuccessPageBuilder));
+  }
+
+  /// Helper to handle error
+  ///
+  /// It will show a snack bar if possible
+  /// otherwise it logs error to console
+  void error(dynamic error) {
+    if (_context != null) {
+      Scaffold.of(_context)
+          .showSnackBar(SnackBar(content: Text(error.message)));
+    } else {
+      print(error);
+    }
   }
 }
