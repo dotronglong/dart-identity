@@ -1,3 +1,7 @@
+## [0.0.8] - v0.0.8
+
+* Allow to access static `instance` of `Identity`
+
 ## [0.0.7] - v0.0.7
 
 * Fix SignInPage builder

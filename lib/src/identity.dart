@@ -13,6 +13,8 @@ class Identity {
 
   User get user => _user;
 
+  static Identity get instance => _instance;
+
   set user(User user) {
     if (user == null) {
       _clear();
