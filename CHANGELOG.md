@@ -1,3 +1,7 @@
+## [0.1.0] - v0.1.0
+
+* Upgrade `sso: ^0.1.0`
+
 ## [0.0.9] - v0.0.9
 
 * Enhance error method

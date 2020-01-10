@@ -79,8 +79,8 @@ class Identity {
         _context, MaterialPageRoute(builder: _signInSuccessPageBuilder));
   }
 
-  void _showMessage(String message) =>
-      Scaffold.of(_context).showSnackBar(SnackBar(content: Text(message)));
+  void _showMessage(String message, [Map parameters]) =>
+      _provider.notifier.notify(_context, message, parameters);
 
   /// Helper to handle error
   ///
@@ -88,8 +88,7 @@ class Identity {
   /// otherwise it logs error to console
   void error(dynamic error) {
     if (_context != null) {
-      _provider.notify(
-          _context, error is String ? error : error.message, {"error": error});
+      _showMessage(error is String ? error : error.message, {"error": error});
     } else {
       print(error);
     }
