@@ -68,8 +68,7 @@ class Identity {
   }
 
   void _handleUnverifiedEmail() {
-    Scaffold.of(_context)
-        .showSnackBar(SnackBar(content: Text('Please verify your email')));
+    _showMessage('Please verify your email');
     Future.delayed(Duration(seconds: 2), () => _provider.stop());
   }
 
@@ -80,14 +79,17 @@ class Identity {
         _context, MaterialPageRoute(builder: _signInSuccessPageBuilder));
   }
 
+  void _showMessage(String message) =>
+      Scaffold.of(_context).showSnackBar(SnackBar(content: Text(message)));
+
   /// Helper to handle error
   ///
   /// It will show a snack bar if possible
   /// otherwise it logs error to console
   void error(dynamic error) {
     if (_context != null) {
-      Scaffold.of(_context)
-          .showSnackBar(SnackBar(content: Text(error.message)));
+      _provider.notify(
+          _context, error is String ? error : error.message, {"error": error});
     } else {
       print(error);
     }

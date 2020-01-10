@@ -1,3 +1,7 @@
+## [0.0.9] - v0.0.9
+
+* Enhance error method
+
 ## [0.0.8] - v0.0.8
 
 * Allow to access static `instance` of `Identity`
