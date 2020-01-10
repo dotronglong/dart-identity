@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sso/sso.dart';
 
+import '../identity.dart';
+
 class SignInPage extends StatefulWidget {
   final Provider provider;
   final ThemeData theme;
@@ -20,6 +22,11 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(builder: (context) {
+        // Context is changed, therefore,
+        // we need to update identity's context
+        Identity.of(context);
+
+        // Initializing theme, header and actions
         ThemeData theme = this.widget.theme ??
             this.widget.provider.theme ??
             Theme.of(context);
