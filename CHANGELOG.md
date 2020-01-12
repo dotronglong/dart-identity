@@ -1,3 +1,7 @@
+## [0.1.2] - v0.1.2
+
+* Fix null error
+
 ## [0.1.1] - v0.1.1
 
 * Improve identity's context

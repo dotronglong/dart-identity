@@ -87,6 +87,9 @@ class Identity {
   /// It will show a snack bar if possible
   /// otherwise it logs error to console
   void error(dynamic error) {
+    if (error == null) {
+      return;
+    }
     if (_context != null) {
       _showMessage(error is String ? error : error.message, {"error": error});
     } else {
