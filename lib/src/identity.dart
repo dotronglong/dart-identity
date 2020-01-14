@@ -47,14 +47,13 @@ class Identity {
   /// Requires an Identity Provider and a WidgetBuilder which uses as
   /// a page to navigate to after log in successfully
   ///
-  /// SignInPage can be customised using theme, header and divider
+  /// SignInPage can be customised using builder
   Future<void> init(Provider provider, WidgetBuilder success,
-      {ThemeData theme, Widget header, Widget divider}) async {
+      {WidgetBuilder builder}) async {
     assert(provider != null);
     assert(success != null);
     _provider = provider;
-    _signInPageBuilder = (context) =>
-        SignInPage(provider, theme: theme, header: header, divider: divider);
+    _signInPageBuilder = builder ?? (context) => SignInPage(provider);
     _signInSuccessPageBuilder = success;
 
     user = await provider.start();
@@ -80,7 +79,7 @@ class Identity {
   }
 
   void _showMessage(String message, [Map parameters]) =>
-      _provider.notifier.notify(_context, message, parameters);
+      _provider.notify(_context, message, parameters);
 
   /// Helper to handle error
   ///
@@ -91,7 +90,8 @@ class Identity {
       return;
     }
     if (_context != null) {
-      _showMessage(error is String ? error : error.message, {"error": error});
+      _showMessage(
+          error is String ? error : error.toString(), {"error": error});
     } else {
       print(error);
     }

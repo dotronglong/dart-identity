@@ -7,10 +7,8 @@ class SignInPage extends StatefulWidget {
   final Provider provider;
   final ThemeData theme;
   final Widget header;
-  final Widget divider;
 
-  const SignInPage(this.provider,
-      {Key key, this.theme, this.header, this.divider})
+  const SignInPage(this.provider, {Key key, this.theme, this.header})
       : super(key: key);
 
   @override
@@ -27,10 +25,8 @@ class _SignInPageState extends State<SignInPage> {
         Identity.of(context);
 
         // Initializing theme, header and actions
-        ThemeData theme = this.widget.theme ??
-            this.widget.provider.theme ??
-            Theme.of(context);
-        Widget header = this.widget.header ?? this.widget.provider.header;
+        ThemeData theme = this.widget.theme ?? Theme.of(context);
+        Widget header = this.widget.header;
         List<Widget> actions = header == null ? [] : [header];
         actions.addAll(this.widget.provider.actions(context));
 
