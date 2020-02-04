@@ -1,3 +1,7 @@
+## [0.2.1] - v0.2.1
+
+* Fix sign in page color
+
 ## [0.2.0] - v0.2.0
 
 * Upgrade `sso: ^0.2.0`

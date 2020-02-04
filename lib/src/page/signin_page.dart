@@ -19,21 +19,19 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: Builder(builder: (context) {
         // Context is changed, therefore,
         // we need to update identity's context
         Identity.of(context);
 
         // Initializing theme, header and actions
-        ThemeData theme = this.widget.theme ?? Theme.of(context);
         Widget header = this.widget.header;
         List<Widget> actions = header == null ? [] : [header];
         actions.addAll(this.widget.provider.actions(context));
 
         return Container(
-          color: theme.primaryColor,
           padding: EdgeInsets.only(left: 16, right: 16, top: 24),
-          height: double.infinity,
           child: Center(
             child: Card(
               child: Container(
