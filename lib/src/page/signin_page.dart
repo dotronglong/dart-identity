@@ -19,7 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.white,
       body: Builder(builder: (context) {
         // Context is changed, therefore,
         // we need to update identity's context
@@ -33,14 +33,12 @@ class _SignInPageState extends State<SignInPage> {
         return Container(
           padding: EdgeInsets.only(left: 16, right: 16, top: 24),
           child: Center(
-            child: Card(
-              child: Container(
-                padding: EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: actions,
-                  ),
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: actions,
                 ),
               ),
             ),

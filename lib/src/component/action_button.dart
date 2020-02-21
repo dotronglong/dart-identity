@@ -22,18 +22,18 @@ class ActionButton extends StatelessWidget {
         color: color,
         onPressed: onPressed,
         padding: EdgeInsets.only(left: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         child: Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.only(right: 16),
+                  padding: EdgeInsets.only(top: 6, bottom: 6),
+                  margin: EdgeInsets.only(left: 8, right: 24),
                   child: icon,
-                  color: Colors.white,
                 ),
-                Text(text.toUpperCase(), style: TextStyle(color: textColor))
+                Text(text, style: TextStyle(color: textColor, fontSize: 19))
               ],
             )),
       ),

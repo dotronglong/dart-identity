@@ -1,57 +1,61 @@
-## [0.2.1] - v0.2.1
+## 0.2.2
+
+- Improve ActionButton
+
+## 0.2.1
 
 * Fix sign in page color
 
-## [0.2.0] - v0.2.0
+## 0.2.0
 
 * Upgrade `sso: ^0.2.0`
 
-## [0.1.2] - v0.1.2
+## 0.1.2
 
 * Fix null error
 
-## [0.1.1] - v0.1.1
+## 0.1.1
 
 * Improve identity's context
 
-## [0.1.0] - v0.1.0
+## 0.1.0
 
 * Upgrade `sso: ^0.1.0`
 
-## [0.0.9] - v0.0.9
+## 0.0.9
 
 * Enhance error method
 
-## [0.0.8] - v0.0.8
+## 0.0.8
 
 * Allow to access static `instance` of `Identity`
 
-## [0.0.7] - v0.0.7
+## 0.0.7
 
 * Fix SignInPage builder
 
-## [0.0.6] - v0.0.6
+## 0.0.6
 
 * Minor improvements
 
-## [0.0.5] - v0.0.5
+## 0.0.5
 
 * Add `error` helper method
 
-## [0.0.4] - v0.0.4
+## 0.0.4
 
 * Remove `context` getter
 * Use sso `^0.0.5`
 
-## [0.0.3] - v0.0.3
+## 0.0.3
 
 * Allow to get `context` of `Identity`
 
-## [0.0.2] - v0.0.2
+## 0.0.2
 
 * Add SignInPage
 * Add Identity service
 
-## [0.0.1] - v0.0.1
+## 0.0.1
 
 * Init project
