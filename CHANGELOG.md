@@ -1,3 +1,7 @@
+## 0.2.3
+
+- Improve message in error handler
+
 ## 0.2.2
 
 - Improve ActionButton

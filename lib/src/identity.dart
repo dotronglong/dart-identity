@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sso/sso.dart';
 
 import 'page/signin_page.dart';
@@ -90,8 +91,15 @@ class Identity {
       return;
     }
     if (_context != null) {
-      _showMessage(
-          error is String ? error : error.toString(), {"error": error});
+      String message;
+      if (error is String) {
+        message = error;
+      } else if (error is PlatformException) {
+        message = error.message;
+      } else {
+        message = error.toString();
+      }
+      _showMessage(message, {"error": error});
     } else {
       print(error);
     }
