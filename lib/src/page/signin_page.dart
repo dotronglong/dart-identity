@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sso/sso.dart';
 
 import '../identity.dart';
+import '../sso/provider.dart';
 
-class SignInPage extends StatefulWidget {
+class SignInPage extends StatelessWidget {
   final Provider provider;
-  final ThemeData theme;
-  final Widget header;
+  final SignInPageSettings settings;
 
-  const SignInPage(this.provider, {Key key, this.theme, this.header})
+  const SignInPage(this.provider,
+      {Key key, this.settings = const SignInPageSettings()})
       : super(key: key);
 
-  @override
-  State createState() => _SignInPageState();
-}
-
-class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +18,11 @@ class _SignInPageState extends State<SignInPage> {
       body: Builder(builder: (context) {
         // Context is changed, therefore,
         // we need to update identity's context
-        Identity.of(context);
+        Identity.instance.context = context;
 
         // Initializing theme, header and actions
-        Widget header = this.widget.header;
-        List<Widget> actions = header == null ? [] : [header];
-        actions.addAll(this.widget.provider.actions(context));
+        List<Widget> actions = settings.header == null ? [] : [settings.header];
+        actions.addAll(provider.actions(context));
 
         return Container(
           padding: EdgeInsets.only(left: 16, right: 16, top: 24),
@@ -47,4 +41,10 @@ class _SignInPageState extends State<SignInPage> {
       }),
     );
   }
+}
+
+class SignInPageSettings {
+  final Widget header;
+
+  const SignInPageSettings({this.header});
 }

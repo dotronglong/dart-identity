@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:sso/sso.dart';
 
 import 'page/signin_page.dart';
+import 'sso/provider.dart';
+import 'sso/user.dart';
 
 class Identity {
+  final Provider _provider;
+  final WidgetBuilder _authenticatedPageBuilder;
+
   static Identity _instance;
-  BuildContext _context;
-  Provider _provider;
   WidgetBuilder _signInPageBuilder;
-  WidgetBuilder _signInSuccessPageBuilder;
   User _user;
+  BuildContext _context;
+
+  Identity(
+      {@required Provider provider,
+      @required WidgetBuilder authenticatedPageBuilder})
+      : _provider = provider,
+        _authenticatedPageBuilder = authenticatedPageBuilder;
+
+  static Identity get instance {
+    assert(_instance != null);
+    return _instance;
+  }
+
+  BuildContext get context => _context;
+
+  set context(BuildContext context) {
+    assert(context != null);
+    _context = context;
+  }
 
   User get user => _user;
-
-  static Identity get instance => _instance;
 
   set user(User user) {
     if (user == null) {
@@ -32,37 +50,25 @@ class Identity {
       user.expiredAt != null &&
       user.expiredAt.isAfter(DateTime.now());
 
-  static Identity of(BuildContext context) {
-    assert(context != null);
-    if (_instance == null) {
-      _instance = Identity();
-    }
-    _instance._context = context;
-
-    return _instance;
-  }
-
   /// Initialize Identity service
   ///
   /// Requires an Identity Provider and a WidgetBuilder which uses as
   /// a page to navigate to after log in successfully
   ///
   /// SignInPage can be customised using builder
-  Future<void> init(Provider provider, WidgetBuilder success,
-      {WidgetBuilder builder}) async {
-    assert(provider != null);
-    assert(success != null);
-    _provider = provider;
-    _signInPageBuilder = builder ?? (context) => SignInPage(provider);
-    _signInSuccessPageBuilder = success;
+  Future<void> init(BuildContext context,
+      {WidgetBuilder signInPageBuilder}) async {
+    this.context = context;
+    _signInPageBuilder =
+        signInPageBuilder ?? (context) => SignInPage(_provider);
 
-    user = await provider.start();
+    user = await _provider.start();
   }
 
   void _clear() {
     _user = null;
     _provider.stop();
-    Navigator.of(_context)
+    Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: _signInPageBuilder));
   }
 
@@ -73,13 +79,13 @@ class Identity {
 
   void _handleSignInSuccess(User user) {
     _user = user;
-    Navigator.popUntil(_context, (route) => route.isFirst);
+    Navigator.popUntil(context, (route) => route.isFirst);
     Navigator.pushReplacement(
-        _context, MaterialPageRoute(builder: _signInSuccessPageBuilder));
+        _context, MaterialPageRoute(builder: _authenticatedPageBuilder));
   }
 
   void _showMessage(String message, [Map parameters]) =>
-      _provider.notify(_context, message, parameters);
+      _provider.notify(context, message, parameters);
 
   /// Helper to handle error
   ///
