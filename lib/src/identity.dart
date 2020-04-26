@@ -14,7 +14,12 @@ class Identity {
 
   User get user => _user;
 
-  static Identity get instance => _instance;
+  static Identity get instance {
+    if (_instance == null) {
+      _instance = Identity();
+    }
+    return _instance;
+  }
 
   set user(User user) {
     if (user == null) {
@@ -35,10 +40,7 @@ class Identity {
 
   static Identity of(BuildContext context) {
     assert(context != null);
-    if (_instance == null) {
-      _instance = Identity();
-    }
-    _instance._context = context;
+    instance._context = context;
 
     return _instance;
   }

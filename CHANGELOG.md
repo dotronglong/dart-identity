@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Minor updates for `Identity`
+
 ## 0.2.3
 
 - Improve message in error handler

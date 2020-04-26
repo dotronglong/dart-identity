@@ -1,6 +1,6 @@
 name: identity
 description: Universal Identity library
-version: 0.2.3
+version: 0.2.4
 author: Long Do <me@dotronglong.com>
 homepage: https://github.com/dotronglong/dart-identity
 
