@@ -63,7 +63,7 @@ packages:
       name: emitter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.5"
+    version: "1.2.0"
   flutter:
     dependency: "direct main"
     description: flutter
