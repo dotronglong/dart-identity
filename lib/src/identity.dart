@@ -1,39 +1,37 @@
+import 'package:emitter/emitter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:identity/src/event/user_changed_event.dart';
 
 import 'page/signin_page.dart';
 import 'sso/provider.dart';
 import 'sso/user.dart';
 
 class Identity {
-  final Provider _provider;
-  final WidgetBuilder _authenticatedPageBuilder;
-
-  static Identity _instance;
+  static const EVENT_USER_CHANGED = "identity.user.changed";
+  final IdentityProvider provider;
+  BuildContext context;
+  WidgetBuilder _authenticatedPageBuilder;
   WidgetBuilder _signInPageBuilder;
+  bool _popOnSuccess;
+
+  static Identity instance;
   User _user;
-  BuildContext _context;
 
-  Identity(
-      {@required Provider provider,
-      @required WidgetBuilder authenticatedPageBuilder})
-      : _provider = provider,
-        _authenticatedPageBuilder = authenticatedPageBuilder;
-
-  static Identity get instance {
-    assert(_instance != null);
-    return _instance;
-  }
-
-  BuildContext get context => _context;
-
-  set context(BuildContext context) {
-    assert(context != null);
-    _context = context;
+  Identity(this.provider, {EventListener onUserChanged}) {
+    if (onUserChanged != null) {
+      EventEmitter.instance.on(EVENT_USER_CHANGED, onUserChanged);
+    }
   }
 
   User get user => _user;
 
   set user(User user) {
+    EventEmitter.instance.emit(EVENT_USER_CHANGED, UserChangedEvent(user));
+    if (context == null) {
+      _user = user;
+      return;
+    }
     if (user == null) {
       _clear();
     } else if (user.isVerified == false) {
@@ -50,42 +48,52 @@ class Identity {
       user.expiredAt != null &&
       user.expiredAt.isAfter(DateTime.now());
 
-  /// Initialize Identity service
+  static Identity of(BuildContext context) {
+    assert(context != null);
+    instance.context = context;
+
+    return instance;
+  }
+
+  /// Run Identity service
   ///
-  /// Requires an Identity Provider and a WidgetBuilder which uses as
+  /// Requires a WidgetBuilder which uses as
   /// a page to navigate to after log in successfully
   ///
-  /// SignInPage can be customised using builder
-  Future<void> init(BuildContext context,
-      {WidgetBuilder signInPageBuilder}) async {
+  /// SignInPage can be customised using signInPageBuilder
+  Future<void> run(BuildContext context, WidgetBuilder authenticatedPageBuilder,
+      {WidgetBuilder signInPageBuilder, bool popOnSuccess = true}) async {
     this.context = context;
-    _signInPageBuilder =
-        signInPageBuilder ?? (context) => SignInPage(_provider);
+    _authenticatedPageBuilder = authenticatedPageBuilder;
+    _signInPageBuilder = signInPageBuilder ?? (context) => SignInPage(provider);
+    _popOnSuccess = popOnSuccess;
 
-    user = await _provider.start();
+    user = await provider.start();
   }
 
   void _clear() {
     _user = null;
-    _provider.stop();
+    provider.stop();
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: _signInPageBuilder));
   }
 
   void _handleUnverifiedEmail() {
     _showMessage('Please verify your email');
-    Future.delayed(Duration(seconds: 2), () => _provider.stop());
+    Future.delayed(Duration(seconds: 2), () => provider.stop());
   }
 
   void _handleSignInSuccess(User user) {
     _user = user;
-    Navigator.popUntil(context, (route) => route.isFirst);
+    if (_popOnSuccess) {
+      Navigator.popUntil(context, (route) => route.isFirst);
+    }
     Navigator.pushReplacement(
-        _context, MaterialPageRoute(builder: _authenticatedPageBuilder));
+        context, MaterialPageRoute(builder: _authenticatedPageBuilder));
   }
 
   void _showMessage(String message, [Map parameters]) =>
-      _provider.notify(context, message, parameters);
+      provider.notify(context, message, parameters);
 
   /// Helper to handle error
   ///
@@ -95,9 +103,16 @@ class Identity {
     if (error == null) {
       return;
     }
-    if (_context != null) {
-      _showMessage(
-          error is String ? error : error.toString(), {"error": error});
+    if (context != null) {
+      String message;
+      if (error is String) {
+        message = error;
+      } else if (error is PlatformException) {
+        message = error.message;
+      } else {
+        message = error.toString();
+      }
+      _showMessage(message, {"error": error});
     } else {
       print(error);
     }

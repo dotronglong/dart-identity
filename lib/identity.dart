@@ -1,6 +1,7 @@
 library identity;
 
 export 'src/component/action_button.dart';
+export 'src/event/user_changed_event.dart';
 export 'src/identity.dart';
 export 'src/page/signin_page.dart';
 export 'src/sso/authenticator.dart';

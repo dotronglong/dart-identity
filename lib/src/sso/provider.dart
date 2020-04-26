@@ -7,13 +7,13 @@ import 'notifier.dart';
 import 'user.dart';
 import 'user_converter.dart';
 
-abstract class Provider with WillNotify, WillConvertUser {
+abstract class IdentityProvider with WillNotify, WillConvertUser {
   final List<Authenticator> _authenticators = List();
 
   /// Construct Provider
   ///
   /// Receives a list of authenticators as argument
-  Provider(
+  IdentityProvider(
       [List<Authenticator> authenticators = const [],
       Notifier notifier,
       UserConverter userConverter]) {
@@ -25,7 +25,7 @@ abstract class Provider with WillNotify, WillConvertUser {
   }
 
   /// Register authenticator
-  Provider use(Authenticator authenticator) {
+  IdentityProvider use(Authenticator authenticator) {
     if (authenticator is WillNotify) {
       (authenticator as WillNotify).notifier = notifier;
     }

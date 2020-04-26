@@ -4,7 +4,7 @@ import '../identity.dart';
 import '../sso/provider.dart';
 
 class SignInPage extends StatelessWidget {
-  final Provider provider;
+  final IdentityProvider provider;
   final SignInPageSettings settings;
 
   const SignInPage(this.provider,

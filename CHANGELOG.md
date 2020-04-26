@@ -1,3 +1,16 @@
+## 0.3.0
+
+- Move `sso` to `identity`
+- Use `EventEmitter`
+
+## 0.2.4
+
+- Minor updates for `Identity`
+
+## 0.2.3
+
+- Improve message in error handler
+
 ## 0.2.2
 
 - Improve ActionButton
