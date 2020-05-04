@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Allow to customize shape of ActionButton
+
 ## 0.3.0
 
 - Move `sso` to `identity`

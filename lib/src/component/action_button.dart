@@ -5,6 +5,7 @@ class ActionButton extends StatelessWidget {
   final String text;
   final Color color;
   final Color textColor;
+  final ShapeBorder shape;
   final VoidCallback onPressed;
 
   ActionButton(
@@ -12,6 +13,7 @@ class ActionButton extends StatelessWidget {
       this.text,
       this.color = Colors.white,
       this.textColor = Colors.black,
+      this.shape,
       this.onPressed});
 
   @override
@@ -22,7 +24,8 @@ class ActionButton extends StatelessWidget {
         color: color,
         onPressed: onPressed,
         padding: EdgeInsets.only(left: 8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        shape: this.shape ??
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         child: Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Row(
