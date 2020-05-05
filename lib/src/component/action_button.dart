@@ -24,8 +24,7 @@ class ActionButton extends StatelessWidget {
         color: color,
         onPressed: onPressed,
         padding: EdgeInsets.only(left: 8),
-        shape: this.shape ??
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        shape: this.shape,
         child: Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Row(
