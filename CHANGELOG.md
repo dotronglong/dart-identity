@@ -1,3 +1,7 @@
+## 0.3.2
+
+- Upgrade ActionButton
+
 ## 0.3.1
 
 - Allow to customize shape of ActionButton
