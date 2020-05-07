@@ -28,11 +28,11 @@ class ActionButton extends StatelessWidget {
         child: Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.only(top: 6, bottom: 6),
-                  margin: EdgeInsets.only(left: 8, right: 24),
+                  margin: EdgeInsets.only(left: 6, right: 6),
                   child: icon,
                 ),
                 Text(text, style: TextStyle(color: textColor, fontSize: 19))
